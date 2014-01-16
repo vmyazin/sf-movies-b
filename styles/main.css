@@ -1,0 +1,67 @@
+/*-- HTML5 Boilerplate. -----------------------------------------------------*/
+
+@import "../vendor/html5-boilerplate/css/normalize.css";
+@import "../vendor/html5-boilerplate/css/main.css";
+@import "../vendor/bootstrap/dist/css/bootstrap.min.css";
+
+@import "bootstrap_overrides.css";
+
+/*-- Application stylesheets. -----------------------------------------------*/
+
+html { height: 100% }
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: #765979;
+}
+.main-wrapper {
+  height: 100%;
+  padding-top: 51px;
+}
+#map { height: 100% }
+.map-container {
+  height: 100%;
+  padding-right: 0;
+}
+.navbar-form {
+  max-width: 300px;
+}
+.marker-title {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+[class^="gm-style"] > p:last-child {
+  margin-bottom: 0;
+}
+.loading {
+  padding: 30px 0;
+}
+aside {
+  height: 100%;
+  overflow-y: auto;
+  padding-left: 20px;
+}
+aside h4 {
+  cursor: pointer;
+}
+aside h4 i {
+  color: #ddd;
+  font-style: normal;
+  font-weight: 300;
+}
+.locations-list {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+.locations-list li {
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+.locations-list li a {
+  color: #704CE4;
+}
+.locations-list li a.active {
+  color: #777;
+}

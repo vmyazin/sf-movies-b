@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="img/favicon.png" type="image/x-icon">
+
+  <title>San Francisco Film Locations</title>
+
+  <!-- Application styles. -->
+  <!-- build:[href] styles.min.css -->
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- /build -->
+  <!-- <script data-main="app/main" src="vendor/bower/handlebars/handlebars.js"></script> -->
+
+</head>
+
+<body>
+  <!-- Application container. -->
+  <main role="main" id="main"></main>
+
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">SF Films</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-search"></span>
+            </span>
+            <input id="search" type="text" class="form-control" placeholder="Film title">
+          </div>
+        </div>
+        <!-- <button type="submit" class="btn btn-success">Search</button> -->
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </nav>
+
+    <div class="row-fluid main-wrapper">
+      <aside class="col-md-3">
+        <p class="loading text-center">Loading...</p>
+        <div id="film-list">
+        </div>
+      </aside>
+      <div class="col-md-9 map-container">
+        <div id="map"></div>
+      </div>
+    </div>
+
+  <script id="film-template" type="text/x-handlebars-template">
+    {{#this}}
+      <h4 data-toggle="collapse" data-target="#{{makeId title}}">{{title}} <i>({{attr.[0].release_year}})</i></h4>
+      <ul class="locations-list list-unstyled collapse" id="{{makeId title}}" data-title="{{title}}">
+        <li class="trailer-link-container"><a href="#" class="view-trailer" data-target="#video-modal"><span class="glyphicon glyphicon-facetime-video"></span> Trailer</a></li>
+        {{#attr}}
+          {{#if locations}}
+            <li><a href="javascript:void(0)" data-location="{{locations}}" data-location-clean="{{sanitizeAddress locations}}" data-fact="{{fun_facts}}">{{locations}}</a></li>
+          {{/if}}
+        {{/attr}}
+      </ul>
+    {{/this}}
+  </script>
+
+  <script id="trailer-modal-tpl" type="text/x-handlebars-template">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body text-center">
+          {{{videoObj}}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </script>
+
+  <!-- Application source. -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6Sc8N51wyn6JC6qyIBFuTJpApcGB809k&sensor=false"></script>
+  <script src="scripts/maps.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/underscore.js"></script>
+  <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="vendor/handlebars/handlebars.js"></script>
+  <script src="vendor/backbone/backbone-min.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
