@@ -24,10 +24,20 @@ AllFilms.fetch({}).complete(function() {
 });
 
 var Trailer = Backbone.Model.extend({
-  url: 'http://api.traileraddict.com/?film=bullitt&count=1',
-  fetch: function(options) {
+  urlRoot: 'http://www.corsproxy.com/api.traileraddict.com/?film=',
+  parse: function(xml) {
+    // var xml = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>"
+    var $xml = $.parseXML(xml);
+    var $json = $.xml2json(xml);
+    return $json;
+  },
+  fetchCurrent: function (filmTitle, options) {
     options = options || {};
-    options.dataType = "xml";
+    options.dataType = 'xml';
+    if (options.url === undefined) {
+      options.url = this.urlRoot + filmTitle + "&count=1";
+    }
+    console.log(Backbone.Model.prototype.fetch.call(this, options));
     return Backbone.Model.prototype.fetch.call(this, options);
   }
 });
@@ -81,22 +91,37 @@ var MainView = Backbone.View.extend({
     });
   },
   initVideoLink: function() {
-    $('#video-modal').on('shown.bs.modal', function (e) {
-      // do something...
-    });
+    $('.locations-list').on('show.bs.collapse', function () {
+      function sanitizeTitle(str) {
+        if(str.toString().indexOf(" ") != -1) {
+          str = str.split(' ').join('_').toLowerCase().replace(/[\.,-\/#!$%\^&\*;:{}=_`~()'?]/g,"+");
+        }
+        return str;          
+      }
 
-    $('.locations-list').find('.view-trailer').on('click', function() {
-      var title = $(this).parents('ul').data('title');
-      filmTrailer.fetch({}).complete(function() {
-        var modalView = new BaseModalView({
-          'data': {
-            'title': title,
-            'videoObj': '<![CDATA[<object width="450" height="384"><param name="movie" value="http://www.traileraddict.com/emd/16186"></param><param name="allowscriptaccess" value="always"></param><param name="wmode" value="transparent"></param><param name="allowfullscreen" value="true"></param><embed src="http://www.traileraddict.com/emd/16186" type="application/x-shockwave-flash" wmode="transparent" allowfullscreen="true" allowscriptaccess="always" width="450" height="384"></embed></object>]]>'
-          }
-        });
-        modalView.show();
+      var self = $(this);
+      var title = $(this).data('title');
+      var urlTitle = sanitizeTitle(title);
+
+      filmTrailer.fetchCurrent(urlTitle, {}).success(function() {
+        var response = filmTrailer.toJSON();
+        var videoLink = self.find('.view-trailer');
+
+        if('trailer' in response) {
+          videoLink.show().click(function() {
+            var modalView = new BaseModalView({
+              'data': {
+                'title': response.trailer.title,
+                'embed': response.trailer.embed
+              }
+            });
+            modalView.show();
+          });
+        } else {
+          console.log(title + ' not found')
+        }
       });
-      console.log('...');
+
     });
   }
 });
@@ -144,7 +169,7 @@ Handlebars.registerHelper('sanitizeAddress', function(addr) {
       return re.test(s);
     };
   }()); 
-  if(addr.indexOf("(") != -1 && hasNumber(addr)) {
+  if(addr.toString().indexOf("(") != -1 && hasNumber(addr)) {
     var cleanAddr = addr.substring(addr.lastIndexOf("(")+1,addr.lastIndexOf(")"));
     return cleanAddr + localeSuffix;    
   } else {

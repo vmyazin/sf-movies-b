@@ -64,7 +64,7 @@
     {{#this}}
       <h4 data-toggle="collapse" data-target="#{{makeId title}}">{{title}} <i>({{attr.[0].release_year}})</i></h4>
       <ul class="locations-list list-unstyled collapse" id="{{makeId title}}" data-title="{{title}}">
-        <li class="trailer-link-container"><a href="#" class="view-trailer" data-target="#video-modal"><span class="glyphicon glyphicon-facetime-video"></span> Trailer</a></li>
+        <li class="trailer-link-container"><a href="javascript:void(0)" class="view-trailer"><span class="glyphicon glyphicon-facetime-video"></span> Trailer</a></li>
         {{#attr}}
           {{#if locations}}
             <li><a href="javascript:void(0)" data-location="{{locations}}" data-location-clean="{{sanitizeAddress locations}}" data-fact="{{fun_facts}}">{{locations}}</a></li>
@@ -82,7 +82,7 @@
           <h4 class="modal-title">{{title}}</h4>
         </div>
         <div class="modal-body text-center">
-          {{{videoObj}}}
+          {{{embed}}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -99,6 +99,7 @@
   <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
   <script src="vendor/handlebars/handlebars.js"></script>
   <script src="vendor/backbone/backbone-min.js"></script>
+  <script src="http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js"></script>
   <script src="scripts/app.js"></script>
 </body>
 </html>
