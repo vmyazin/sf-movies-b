@@ -24,8 +24,15 @@ body {
   height: 100%;
   padding-right: 0;
 }
+.navbar {
+  box-shadow: 0 7px 0 rgba(56, 0, 71, .07);
+}
 .navbar-form {
   max-width: 300px;
+  padding: 0;
+}
+.navbar-brand {
+  padding: 15px 0;
 }
 .marker-title {
   margin: 0 0 10px;

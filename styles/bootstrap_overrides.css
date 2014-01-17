@@ -26,3 +26,11 @@
   font-size: 13px;
   display: inline-block;
 }
+.input-group-addon {
+  background: #dfc7e6;
+  color: #fff;
+}
+.modal-header .close {
+  margin-top: -5px;
+  font-size: 30px;
+}
