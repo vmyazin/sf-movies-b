@@ -64,7 +64,8 @@
     {{#this}}
       <h4 data-toggle="collapse" data-target="#{{makeId title}}">{{title}} <i>({{attr.[0].release_year}})</i></h4>
       <ul class="locations-list list-unstyled collapse" id="{{makeId title}}" data-title="{{title}}">
-        <li class="trailer-link-container"><a href="javascript:void(0)" class="view-trailer"><span class="glyphicon glyphicon-facetime-video"></span> Trailer</a></li>
+        <li class="trailer-link-container"><span class="view-trailer label label-success hide"><span class="glyphicon glyphicon-facetime-video"></span> Watch Trailer</span><span class="label label-default video-link-placeholder">Checking for trailer...</span></li>
+        <li><h5>Locations:</h5></li>
         {{#attr}}
           {{#if locations}}
             <li><a href="javascript:void(0)" data-location="{{locations}}" data-location-clean="{{sanitizeAddress locations}}" data-fact="{{fun_facts}}">{{locations}}</a></li>

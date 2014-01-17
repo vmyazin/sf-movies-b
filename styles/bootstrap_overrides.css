@@ -22,3 +22,7 @@
 .navbar-brand {
   font-size: 24px;
 }
+.label {
+  font-size: 13px;
+  display: inline-block;
+}

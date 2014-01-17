@@ -26,8 +26,6 @@ AllFilms.fetch({}).complete(function() {
 var Trailer = Backbone.Model.extend({
   urlRoot: 'http://www.corsproxy.com/api.traileraddict.com/?film=',
   parse: function(xml) {
-    // var xml = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>"
-    var $xml = $.parseXML(xml);
     var $json = $.xml2json(xml);
     return $json;
   },
@@ -37,12 +35,9 @@ var Trailer = Backbone.Model.extend({
     if (options.url === undefined) {
       options.url = this.urlRoot + filmTitle + "&count=1";
     }
-    console.log(Backbone.Model.prototype.fetch.call(this, options));
     return Backbone.Model.prototype.fetch.call(this, options);
   }
 });
-
-var filmTrailer = new Trailer();
 
 var MainView = Backbone.View.extend({
   initialize: function(){
@@ -92,7 +87,10 @@ var MainView = Backbone.View.extend({
   },
   initVideoLink: function() {
     $('.locations-list').on('show.bs.collapse', function () {
-      function sanitizeTitle(str) {
+
+      var filmTrailer = new Trailer();
+
+      function urlEncodeTitle(str) {
         if(str.toString().indexOf(" ") != -1) {
           str = str.split(' ').join('_').toLowerCase().replace(/[\.,-\/#!$%\^&\*;:{}=_`~()'?]/g,"+");
         }
@@ -100,15 +98,16 @@ var MainView = Backbone.View.extend({
       }
 
       var self = $(this);
-      var title = $(this).data('title');
-      var urlTitle = sanitizeTitle(title);
+      var title = self.data('title');
+      var urlTitle = urlEncodeTitle(title);
+      var trailerRow = self.find('.trailer-link-container');
 
       filmTrailer.fetchCurrent(urlTitle, {}).success(function() {
         var response = filmTrailer.toJSON();
         var videoLink = self.find('.view-trailer');
 
         if('trailer' in response) {
-          videoLink.show().click(function() {
+          videoLink.removeClass('hide').click(function() {
             var modalView = new BaseModalView({
               'data': {
                 'title': response.trailer.title,
@@ -117,7 +116,9 @@ var MainView = Backbone.View.extend({
             });
             modalView.show();
           });
+          trailerRow.find('.video-link-placeholder').addClass('hide');
         } else {
+          trailerRow.find('.video-link-placeholder').text('No trailer found');
           console.log(title + ' not found')
         }
       });
@@ -151,7 +152,6 @@ var BaseModalView = Backbone.View.extend({
   render: function() {
     var template = Handlebars.compile( $("#trailer-modal-tpl").html() );
     this.$el.html(template(this.options.data));
-    console.log(this.options.data)
     return this;
   },
   renderView: function(template) {

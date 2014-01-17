@@ -68,3 +68,6 @@ aside h4 i {
 .unavailable {
   color: #ccc;
 }
+.view-trailer {
+  cursor: pointer;
+}
