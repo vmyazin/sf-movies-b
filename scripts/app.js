@@ -73,7 +73,7 @@ var MainView = Backbone.View.extend({
     }, 0);
 
     // init search input, prevent form submission
-    $('#search').focus().submit(function() { return; });
+    $('#search').focus().parents('form').submit(function(e) { e.preventDefault(); return; });
   },
   bindMapLocationLinks: function() {
     $('.locations-list').find('li:not(.trailer-link-container)').find('a').click(function() {
