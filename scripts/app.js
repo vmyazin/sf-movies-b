@@ -104,9 +104,9 @@ var MainView = Backbone.View.extend({
       }
 
       var self = $(this);
-      var title = self.data('title');
-      var urlTitle = urlEncodeTitle(title);
-      var trailerRow = self.find('.trailer-link-container');
+      var title = self.data('title'),
+          urlTitle = urlEncodeTitle(title),
+          trailerRow = self.find('.trailer-link-container');
 
       filmTrailer.fetchCurrent(urlTitle, {}).success(function() {
         var response = filmTrailer.toJSON();
@@ -125,7 +125,6 @@ var MainView = Backbone.View.extend({
           trailerRow.find('.video-link-placeholder').addClass('hide');
         } else {
           trailerRow.find('.video-link-placeholder').text('No trailer found');
-          console.log(title + ' not found')
         }
       });
 
@@ -137,7 +136,6 @@ var BaseModalView = Backbone.View.extend({
   id: 'base-modal',
   className: 'modal fade',
   template: 'modals/BaseModal',
-
   data: {},
   events: {
     'hidden': 'teardown'
