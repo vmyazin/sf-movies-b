@@ -26,6 +26,9 @@
   font-size: 13px;
   display: inline-block;
 }
+.label-default {
+  background-color: #ccc;
+}
 .input-group-addon {
   background: #dfc7e6;
   color: #fff;

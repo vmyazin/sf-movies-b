@@ -66,6 +66,7 @@ var MainView = Backbone.View.extend({
       });
     });
     this.$el.html(template(locationsArr));
+    $('.total-count > b').text(locationsArr.length); // print total # of films returned
 
     // set 0 timeout to arrange for something to happen once the browser gets control again
     var _this = this;

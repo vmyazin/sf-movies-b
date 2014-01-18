@@ -38,6 +38,12 @@ body {
 [class^="gm-style"] > p:last-child {
   margin-bottom: 0;
 }
+.total-count {
+  opacity: .25;
+  font-size: 16px;
+  line-height: 50px;
+  margin-left: 10px;
+}
 .loading {
   padding: 30px 0;
 }
@@ -45,6 +51,7 @@ aside {
   height: 100%;
   overflow-y: auto;
   padding-left: 20px;
+  padding-top: 10px;
 }
 aside h4 {
   cursor: pointer;
@@ -74,4 +81,13 @@ aside h4 i {
 }
 .view-trailer {
   cursor: pointer;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: white;
+  padding: 4px 8px;
+  font-size: 13px;
+  text-align: right;
 }
