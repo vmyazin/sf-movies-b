@@ -6,21 +6,21 @@ var Films = Backbone.Collection.extend({
 var AllFilms = new Films();
 
 var filterString = '';
+var loadingEl = $('aside .loading');
 
 AllFilms.fetch({}).complete(function() {
   var view = new MainView({el: $('#film-list')});
 
-  $('aside .loading').show();
-
+  loadingEl.show();
   // adds search input monitoring
   $("#search").on('keyup', function() {
     filterString = $(this).val().toLowerCase();    
     view.render();
-    $('aside .loading').hide();
+    loadingEl.hide();
   });
 
   // view.render();
-  $('aside .loading').hide();
+  loadingEl.hide();
 });
 
 var Trailer = Backbone.Model.extend({
@@ -58,10 +58,12 @@ var MainView = Backbone.View.extend({
         }
       }
     });
-    locations = _.groupBy(locations, 'title');
     var locationsArr = [];
-    $.each(locations, function(i,n) {
-      locationsArr.push({title: i, attr: n});
+    $.each(_.groupBy(locations, 'title'), function(t,n) {
+      locationsArr.push({
+        title: t,
+        attr: n
+      });
     });
     this.$el.html(template(locationsArr));
 
@@ -156,31 +158,5 @@ var BaseModalView = Backbone.View.extend({
     var template = Handlebars.compile( $("#trailer-modal-tpl").html() );
     this.$el.html(template(this.options.data));
     return this;
-  },
-  renderView: function(template) {
-    this.$el.html(template({'title':'Title test'}));
-    this.$el.modal({show: false}); // dont show modal on instantiation
   }
-});
-
-
-Handlebars.registerHelper('sanitizeAddress', function(addr) {
-  var localeSuffix = ', San Francisco, CA';
-  var hasNumber = (function() {
-    var re = /\d/;
-    return function(s) {
-      return re.test(s);
-    };
-  }()); 
-  if(addr.toString().indexOf("(") != -1 && hasNumber(addr)) {
-    var cleanAddr = addr.substring(addr.lastIndexOf("(")+1,addr.lastIndexOf(")"));
-    return cleanAddr + localeSuffix;    
-  } else {
-    return addr + localeSuffix;
-  }
-});
-
-Handlebars.registerHelper('makeId', function(str) {
-  str = str.split(' ').join('_').toLowerCase().replace(/[\.,-\/#!$%\^&\*;:{}=_`~()'?]/g,"-");
-  return str;
 });

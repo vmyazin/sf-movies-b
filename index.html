@@ -8,18 +8,10 @@
 
   <title>San Francisco Film Locations</title>
 
-  <!-- Application styles. -->
-  <!-- build:[href] styles.min.css -->
   <link rel="stylesheet" href="styles/main.css">
-
-  <!-- /build -->
-  <!-- <script data-main="app/main" src="vendor/bower/handlebars/handlebars.js"></script> -->
-
 </head>
 
 <body>
-  <!-- Application container. -->
-  <main role="main" id="main"></main>
 
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -95,11 +87,12 @@
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6Sc8N51wyn6JC6qyIBFuTJpApcGB809k&sensor=false"></script>
   <script src="scripts/maps.js"></script>
   <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js"></script>
   <script src="vendor/underscore.js"></script>
+  <script src="vendor/backbone/backbone-min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
   <script src="vendor/handlebars/handlebars.js"></script>
-  <script src="vendor/backbone/backbone-min.js"></script>
-  <script src="http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js"></script>
+  <script src="scripts/handlebars_helpers.js"></script>
   <script src="scripts/app.js"></script>
 </body>
 </html>

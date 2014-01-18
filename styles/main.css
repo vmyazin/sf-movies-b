@@ -1,9 +1,6 @@
-/*-- HTML5 Boilerplate. -----------------------------------------------------*/
+/*-- Bootstrap --------------------------------------------------------------*/
 
-@import "../vendor/html5-boilerplate/css/normalize.css";
-@import "../vendor/html5-boilerplate/css/main.css";
 @import "../vendor/bootstrap/dist/css/bootstrap.min.css";
-
 @import "bootstrap_overrides.css";
 
 /*-- Application stylesheets. -----------------------------------------------*/
@@ -63,7 +60,7 @@ aside h4 i {
   padding-left: 10px;
 }
 .locations-list li {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   line-height: 1.2;
 }
 .locations-list li a {
