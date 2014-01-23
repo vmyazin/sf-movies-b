@@ -12,18 +12,18 @@ AllFilms.fetch({}).complete(function() {
   var view = new MainView({el: $('#film-list')});
 
   loadingEl.show();
-  // adds search input monitoring
+  // adds search input filtering
   $("#search").on('keyup', function() {
     filterString = $(this).val().toLowerCase();    
     view.render();
     loadingEl.hide();
   });
 
-  // view.render();
   loadingEl.hide();
 });
 
 var Trailer = Backbone.Model.extend({
+  // uses proxy server to provide compatible headers
   urlRoot: 'http://www.corsproxy.com/api.traileraddict.com/?film=',
   parse: function(xml) {
     var $json = $.xml2json(xml);
@@ -110,7 +110,8 @@ var MainView = Backbone.View.extend({
 
       filmTrailer.fetchCurrent(urlTitle, {}).success(function() {
         var response = filmTrailer.toJSON();
-        var videoLink = self.find('.view-trailer');
+        var videoLink = self.find('.view-trailer'),
+            placeholder = trailerRow.find('.video-link-placeholder');
 
         if('trailer' in response) {
           videoLink.removeClass('hide').click(function() {
@@ -122,9 +123,9 @@ var MainView = Backbone.View.extend({
             });
             modalView.show();
           });
-          trailerRow.find('.video-link-placeholder').addClass('hide');
+          placeholder.addClass('hide');
         } else {
-          trailerRow.find('.video-link-placeholder').text('No trailer found');
+          placeholder.text('No trailer found');
         }
       });
 
@@ -141,7 +142,6 @@ var BaseModalView = Backbone.View.extend({
     'hidden': 'teardown'
   },
   initialize: function(data) {
-    // _(this).bindAll();
     _.bindAll(this, 'render');
     this.options = data;
     this.render();

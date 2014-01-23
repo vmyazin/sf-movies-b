@@ -4,6 +4,7 @@
 .navbar-default {
   background: #F0DCF8;
   color: #735D79;
+  border-color: #F2E5F7;
 }
 .navbar-default .navbar-brand {
   color: #735D79;  
@@ -32,10 +33,14 @@
 .input-group-addon {
   background: #dfc7e6;
   color: #fff;
+  border-color: #DFC1EB;
 }
 .modal-header .close {
   margin-top: -5px;
   font-size: 30px;
+}
+.form-control {
+  border-color: #DFC1EB;
 }
 .form-control:focus {
   border-color: #F280FD;

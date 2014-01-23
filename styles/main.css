@@ -22,7 +22,7 @@ body {
   padding-right: 0;
 }
 .navbar {
-  box-shadow: 0 7px 0 rgba(56, 0, 71, .07);
+  box-shadow: 0 7px 0 rgba(136, 1, 172, 0.08);
 }
 .navbar-form {
   max-width: 300px;
@@ -56,6 +56,9 @@ aside {
 aside h4 {
   cursor: pointer;
 }
+aside h4:hover {
+  color: #936997;
+}
 aside h4 i {
   color: #ddd;
   font-style: normal;
@@ -67,7 +70,7 @@ aside h4 i {
   padding-left: 10px;
 }
 .locations-list li {
-  margin-bottom: 7px;
+  margin-bottom: 10px;
   line-height: 1.2;
 }
 .locations-list li a {
@@ -89,5 +92,5 @@ aside h4 i {
   background: white;
   padding: 4px 8px;
   font-size: 13px;
-  text-align: right;
+  text-align: center;
 }
